@@ -4,10 +4,12 @@ import React from "react";
 
 const Sidebar = () => {
 	return (
-		<aside className="w-1/4  p-4 text-white">
+		<aside className="w-1/4 text-white">
+			<div className="border-b boder-white sm:py-10 md:py-8 lg:py-6"></div>
 			{/* Filter Section */}
+			<div className="py-4 px-6">
 			<div className="mb-6">
-				<h2 className="text-lg font-bold">User Segments</h2>
+				<h2 className="text-lg font-bold uppercase">User Segments</h2>
 				<div className="mt-4 space-y-2">
 					<div>
 						<input type="checkbox" id="segment1" />
@@ -55,6 +57,7 @@ const Sidebar = () => {
 					className="w-full p-2 mt-2 text-black"
 					placeholder="Type here"
 				/>
+			</div>
 			</div>
 		</aside>
 	);

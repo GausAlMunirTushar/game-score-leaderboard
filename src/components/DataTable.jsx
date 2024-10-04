@@ -1,9 +1,10 @@
-"use client";
+"use client"
 import React, { useState, useMemo } from "react";
 import { useTable, useSortBy, useGlobalFilter } from "react-table";
 
 const DataTable = ({ data }) => {
 	const [filterInput, setFilterInput] = useState("");
+	const [showAllRows, setShowAllRows] = useState(false); // State to toggle showing all data
 
 	// Define table columns
 	const columns = useMemo(
@@ -68,21 +69,20 @@ const DataTable = ({ data }) => {
 		setGlobalFilter,
 	} = tableInstance;
 
+	// Limit the displayed rows to 10 initially, or show all if toggled
+	const displayedRows = showAllRows ? rows : rows.slice(0, 10);
+
 	// Search filter handler
 	const handleFilterChange = (e) => {
 		const value = e.target.value || "";
 		setGlobalFilter(value);
 		setFilterInput(value);
+		setShowAllRows(true); // Show all rows when filtering
 	};
 
 	return (
 		<div className="">
-			{/* <input
-        value={filterInput}
-        onChange={handleFilterChange}
-        placeholder="Search..."
-        className="mb-4 p-2 border border-gray-300 rounded"
-      /> */}
+			{/* Table */}
 			<table
 				{...getTableProps()}
 				className="min-w-full divide-y divide-gray-200 table-auto"
@@ -114,14 +114,18 @@ const DataTable = ({ data }) => {
 					{...getTableBodyProps()}
 					className="bg-white divide-y divide-gray-200"
 				>
-					{rows.map((row) => {
+					{displayedRows.map((row) => {
 						prepareRow(row);
 						return (
 							<tr {...row.getRowProps()}>
 								{row.cells.map((cell) => (
 									<td
 										{...cell.getCellProps()}
-										className="px-6 py-6 whitespace-nowrap"
+										className={`px-8 text-center  py-6 whitespace-nowrap ${
+											cell.column.id === "rank"
+												? "bg-gray-800 text-xl font-bold text-secondary"
+												: ""
+										}`} // Apply a different background color for the Session Rank column
 									>
 										{cell.render("Cell")}
 									</td>

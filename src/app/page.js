@@ -5,7 +5,7 @@ import { playerData } from "./data";
 
 export default function Home() {
 	return (
-		<div className="bg-gradient-to-tr from-red-700 to-red-900 min-h-screen bg-gray-100">
+		<div className="bg-gradient-to-tr from-red-700 to-red-900 bg-gray-100">
 			<DataManipulation/>
 			<div className="flex">
 				{/* Sidebar */}
