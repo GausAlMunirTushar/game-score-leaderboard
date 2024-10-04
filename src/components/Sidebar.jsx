@@ -1,5 +1,3 @@
-
-
 import React from "react";
 
 const Sidebar = () => {
@@ -7,57 +5,82 @@ const Sidebar = () => {
 		<aside className="w-1/4 text-white">
 			<div className="border-b boder-white sm:py-10 md:py-8 lg:py-6"></div>
 			{/* Filter Section */}
-			<div className="py-4 px-6">
-			<div className="mb-6">
-				<h2 className="text-lg font-bold uppercase">User Segments</h2>
-				<div className="mt-4 space-y-2">
-					<div>
-						<input type="checkbox" id="segment1" />
-						<label htmlFor="segment1" className="ml-2">
-							Lorem Ipsum Dolor
-						</label>
-					</div>
-					<div>
-						<input type="checkbox" id="segment2" />
-						<label htmlFor="segment2" className="ml-2">
-							Sit Amet
-						</label>
-					</div>
-					<div>
-						<input type="checkbox" id="segment3" />
-						<label htmlFor="segment3" className="ml-2">
-							Vivamus Interdum
-						</label>
-					</div>
-				</div>
-			</div>
-
-			{/* Date Range Filter */}
-			<div className="mb-6">
-				<h2 className="text-lg font-bold">Aliquam Ornare</h2>
-				<div className="mt-4">
-					<input type="date" className="w-full p-2 mb-2 text-black" />
-					<input type="date" className="w-full p-2 text-black" />
-					<div className="flex justify-between mt-4">
-						<button className="bg-yellow-500 px-4 py-2 rounded text-black">
-							Apply
-						</button>
-						<button className="bg-gray-500 px-4 py-2 rounded text-white">
-							Clear
-						</button>
+			<div className="py-4 px-8">
+				<div className="mb-6">
+					<h2 className="text-lg font-bold uppercase">
+						User Segments
+					</h2>
+					<div className="mt-4 space-y-2">
+						<div className="flex items-center">
+							<input type="checkbox" id="segment1" className="h-4 w-4"/>
+							<label htmlFor="segment1" className="ml-2">
+								Lorem Ipsum Dolor
+							</label>
+						</div>
+						<div className="flex items-center">
+							<input type="checkbox" id="segment2" className="h-4 w-4"/>
+							<label htmlFor="segment2" className="ml-2">
+								Sit Amet
+							</label>
+						</div>
+						<div className="flex items-center">
+							<input type="checkbox" id="segment3" className="h-4 w-4"/>
+							<label htmlFor="segment3" className="ml-2">
+								Vivamus Interdum
+							</label>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			{/* Input Filter */}
-			<div className="mb-6">
-				<h2 className="text-lg font-bold">Nam Gravida Dolor</h2>
-				<input
-					type="text"
-					className="w-full p-2 mt-2 text-black"
-					placeholder="Type here"
-				/>
-			</div>
+				{/* Date Range Filter */}
+				<div className="mb-6">
+					<h2 className="text-lg font-bold">Aliquam Ornare</h2>
+					<div className="mt-4">
+						<div className="flex gap-2">
+							<button
+								type=""
+								className="w-full bg-white p-2 rounded  text-tertiary font-semibold"
+								placeholder="from"
+							>
+								From
+							</button>
+							<button
+								type=""
+								className="w-full bg-white p-2 rounded text-tertiary font-semibold"
+								placeholder="to"
+							>
+								To
+							</button>
+						</div>
+						<div className="flex gap-4 mt-4">
+							<button className="bg-tertiary rounded-full text-white font-semibold px-6 py-2">
+								Apply
+							</button>
+							<button className="bg-red-950 rounded-full text-white font-semibold py-2 px-6">
+								Clear
+							</button>
+						</div>
+					</div>
+				</div>
+
+				{/* Input Filter */}
+				<div className="mb-6">
+					<h2 className="text-lg font-bold">Nam Gravida Dolor</h2>
+					<input
+						type="text"
+						className="w-full rounded py-2.5 px-4 placeholder:text-secondary capitalize mt-2 text-black focus:outline-primary"
+						placeholder="Type here"
+					/>
+				</div>
+				{/* Input Filter */}
+				<div className="mb-6">
+					<h2 className="text-lg font-bold">Nam Gravida Dolor</h2>
+					<input
+						type="text"
+						className="w-full rounded py-2.5 px-4 placeholder:text-secondary capitalize mt-2 text-black focus:outline-primary"
+						placeholder="Type here"
+					/>
+				</div>
 			</div>
 		</aside>
 	);

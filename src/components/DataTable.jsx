@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useMemo } from "react";
 import { useTable, useSortBy, useGlobalFilter } from "react-table";
 
@@ -14,8 +14,8 @@ const DataTable = ({ data }) => {
 				accessor: "rank",
 			},
 			{
-				Header: "Game Rank", // This header will display the game rank
-				accessor: "gamerank", // Make sure this accessor matches the property in your data
+				Header: "Game Rank",
+				accessor: "gamerank",
 			},
 			{
 				Header: "First Name",
@@ -89,9 +89,10 @@ const DataTable = ({ data }) => {
 			>
 				<thead className="bg-red-950 mb-2">
 					{headerGroups.map((headerGroup) => (
-						<tr {...headerGroup.getHeaderGroupProps()}>
+						<tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
 							{headerGroup.headers.map((column) => (
 								<th
+									key={column.id} // Add key prop here
 									{...column.getHeaderProps(
 										column.getSortByToggleProps()
 									)}
@@ -117,15 +118,16 @@ const DataTable = ({ data }) => {
 					{displayedRows.map((row) => {
 						prepareRow(row);
 						return (
-							<tr {...row.getRowProps()}>
+							<tr key={row.id} {...row.getRowProps()}> {/* Add key prop here */}
 								{row.cells.map((cell) => (
 									<td
+										key={cell.column.id} // Add key prop here
 										{...cell.getCellProps()}
 										className={`px-8 text-center  py-6 whitespace-nowrap ${
 											cell.column.id === "rank"
 												? "bg-gray-800 text-xl font-bold text-secondary"
 												: ""
-										}`} // Apply a different background color for the Session Rank column
+										}`}
 									>
 										{cell.render("Cell")}
 									</td>
