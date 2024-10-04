@@ -1,58 +1,56 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 
-export default function GameCard() {
-	const games = [
-		{
-			date: "December 17, 2023",
-			location: "State Farm Stadium",
-			opponent: "Arizona Cardinals",
-			result: "W",
-			score: "45-29",
-			logo: "/images/card-1.svg",
-		},
-		{
-			date: "February 11, 2024",
-			location: "Allegiant Stadium",
-			opponent: "Kansas City Chiefs",
-			result: "L",
-			score: "22-25 (OT)",
-			logo: "/images/card-1.svg",
-		},
-	];
-
+function GameCard({ game }) {
 	const [isDetailed, setIsDetailed] = useState(false);
 
 	const toggleView = () => {
 		setIsDetailed(!isDetailed);
 	};
 
-	const game = isDetailed ? games[1] : games[0];
+	// Toggle between team1 and team2
+	const currentTeam = isDetailed ? game.team2 : game.team1;
 
 	return (
 		<div
-			className={`min-w-[220px] max-w-[220px] min-h-[300px] p-4 rounded-lg shadow-md cursor-pointer transition-all duration-300
-				${isDetailed ? "bg-white text-black" : "bg-secondary text-white"}`}
+			className={`min-w-[220px] max-w-[250px] min-h-[370px] max-h-[350px] px-4 py-6 rounded-lg shadow-md cursor-pointer transition-all duration-300
+				${isDetailed ? "bg-white text-black" : "bg-tertiary	 text-black"}`}
 			onClick={toggleView}
 		>
-			<p className="font-semibold text-lg">{game.date}</p>
-			<p className="text-gray-300 text-sm">{game.location}</p>
-			<div className="flex items-center justify-center mt-4">
+			<div className="h-20">
+				<p className="font-semibold text-lg uppercase text-center">
+					{game.date}
+				</p>
+				<p className="text-black text-lg text-center font-bold uppercase">
+					{game.location}
+				</p>
+			</div>
+			<div className="flex items-center justify-center mt-4 h-20">
 				<div className="w-16 h-16">
-					<img src={game.logo} alt={game.opponent} />
+					<Image
+						src={currentTeam.logo}
+						alt={currentTeam.name}
+						height={60}
+						width={60}
+					/>
 				</div>
 			</div>
-			<p className="font-bold text-xl mt-2">{game.opponent}</p>
-			<div className="flex items-center justify-center mt-4">
-				<p
-					className={`font-bold text-2xl ${
-						game.result === "W" ? "text-green-400" : "text-red-500"
-					}`}
-				>
-					{game.result}
+			<div className="h-20">
+				<p className="text-center font-bold">VS</p>
+				<p className="text-lg mt-2 uppercase text-center">{currentTeam.name}</p>
+				<p className="text-center font-bold uppercase text-xl">{currentTeam.title}</p>
+			</div>
+			<div className="flex items-center justify-center mt-4 h-20">
+				<p className="font-bold text-2xl uppercase text-center">
+					{currentTeam.result}
 				</p>
-				<p className="ml-2 font-semibold text-lg">{game.score}</p>
+				<p className="ml-2 font-semibold text-2xl">
+					{currentTeam.score}
+				</p>
 			</div>
 		</div>
 	);
 }
+
+export default GameCard;
