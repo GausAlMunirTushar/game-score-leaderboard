@@ -23,6 +23,7 @@ ChartJS.register(
 
 const PlayerModal = ({ player, isOpen, onClose }) => {
 	if (!isOpen || !player) return null;
+
 	const data = {
 		labels: [
 			"",
@@ -37,7 +38,7 @@ const PlayerModal = ({ player, isOpen, onClose }) => {
 			"",
 			"",
 			"",
-			"",
+			"Wk 13",
 			"",
 			"",
 			"",
@@ -46,7 +47,10 @@ const PlayerModal = ({ player, isOpen, onClose }) => {
 			{
 				label: "Ranking",
 				data: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-				backgroundColor: "rgba(189, 128, 0, 0.8)",
+				backgroundColor: function (context) {
+					const index = context.dataIndex;
+					return index === 12 ? "#FFFFFF" : "rgba(189, 128, 0, 0.8)";
+				},
 				borderColor: "rgba(189, 128, 0, 1)",
 				borderWidth: 1,
 			},
@@ -54,45 +58,74 @@ const PlayerModal = ({ player, isOpen, onClose }) => {
 	};
 
 	const options = {
+		responsive: true,
 		scales: {
-			y: {
-				beginAtZero: true,
-				reverse: true, // Reversing to have 1 on top
-				ticks: {
-					stepSize: 1,
+			x: {
+				grid: {
+					display: false,
 				},
+				ticks: {
+					color: "#FFFFFF",
+				},
+			},
+			y: {
+				display: false,
 			},
 		},
 		plugins: {
+			legend: {
+				display: false,
+			},
 			title: {
 				display: true,
-				text: "2023-2024 Season Rankings",
+				text: "2023-2024 SEASON",
+				color: "#FFFFFF",
+				font: {
+					size: 20,
+					family: "'Montserrat', sans-serif",
+					weight: "bold",
+				},
+				padding: {
+					top: 4,
+					bottom: 2,
+				},
+			},
+		},
+		layout: {
+			padding: {
+				top: 20,
+				bottom: 1,
+				left: 10,
+				right: 10,
 			},
 		},
 	};
+
 	return (
 		<div className="h-[600px] inset-0 flex items-center justify-center sm:justify-end z-50">
-			<div className="bg-white rounded-lg shadow-xl max-w-sm w-full p-4 relative">
-				<div className="bg-[#a00000] rounded-lg mb-3">
+			<div className="bg-white file:rounded-lg rounded-lg shadow-xl max-w-sm w-full p-4 relative border">
+				<div className="bg-[#a00000] border  rounded-lg">
 					<Bar data={data} options={options} />
 				</div>
 
-				<div className="flex gap-x-3 mb-2">
+				<div className="flex gap-x-3 mb-2 mt-4">
 					<img
 						src={player?.image}
-						className="w-20 rounded-lg"
+						className="w-[80px] h-[60px] rounded-lg"
 						alt="player"
 					/>
 					<div>
-						<h2 className="text-xl font-medium">
+						<h2 className="text-xl font-medium text-black">
 							{player.firstName} {player.lastName}
 						</h2>
-						<p className="font-bold">#71</p>
+						<p className="font-bold text-black">#71</p>
 					</div>
 				</div>
 
-				<div className="mb-2">{player.background}</div>
-				<div className="mb-2">
+				<div className="text-black mb-4 text-justify">
+					{player.background}
+				</div>
+				<div className="text-black mb-2 text-justify">
 					<ul className="list-disc list-inside">
 						{player.notableAchievements.map(
 							(achievement, index) => (

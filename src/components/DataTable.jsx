@@ -9,6 +9,7 @@ const DataTable = ({ data }) => {
 	const [showAllRows, setShowAllRows] = useState(false);
 	const [selectedPlayer, setSelectedPlayer] = useState(null); // State to track selected player
 	const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+	const [clickedRowIndex, setClickedRowIndex] = useState(null); // Track clicked row index
 
 	// Define table columns
 	const columns = useMemo(
@@ -55,21 +56,23 @@ const DataTable = ({ data }) => {
 	};
 
 	// Handle row click to select a player and open modal
-	const handleRowClick = (row) => {
+	const handleRowClick = (row, rowIndex) => {
 		setSelectedPlayer(row.original); // Set the selected player details
 		setIsModalOpen(true); // Open modal
+		setClickedRowIndex(rowIndex); // Set clicked row index
 	};
 
 	// Close modal handler
 	const handleCloseModal = () => {
 		setIsModalOpen(false);
 		setSelectedPlayer(null);
+		setClickedRowIndex(null); // Reset clicked row index when modal closes
 	};
 
 	return (
 		<div className="flex overflow-x-auto">
 			<div className="w-full">
-				<div className="relative h-[100vh]">
+				<div className="relative h-[80vh]">
 					<table
 						{...getTableProps()}
 						className="divide-y divide-gray-200 table-auto min-w-full"
@@ -84,7 +87,7 @@ const DataTable = ({ data }) => {
 										<th
 											key={column.id}
 											{...column.getSortByToggleProps()}
-											className="px-6 py-4 text-white text-left text-xs font-normal uppercase tracking-wider"
+											className="px-4 py-4 text-white text-left text-xs font-normal uppercase tracking-wider"
 										>
 											<div className="flex items-center">
 												{column.render("Header")}
@@ -110,14 +113,21 @@ const DataTable = ({ data }) => {
 							{...getTableBodyProps()}
 							className="bg-white divide-y divide-gray-200"
 						>
-							{displayedRows.map((row) => {
+							{displayedRows.map((row, rowIndex) => {
 								prepareRow(row);
+								const isClicked = rowIndex === clickedRowIndex; // Check if the row is clicked
 								return (
 									<tr
 										key={row.id}
 										{...row.getRowProps()}
-										onClick={() => handleRowClick(row)}
-										className="hover:bg-red-100 cursor-pointer"
+										onClick={() =>
+											handleRowClick(row, rowIndex)
+										}
+										className={`cursor-pointer  ${
+											isClicked
+												? "bg-red-200"
+												: "hover:bg-red-100"
+										} `}
 									>
 										{row.cells.map((cell) => (
 											<td
@@ -140,7 +150,7 @@ const DataTable = ({ data }) => {
 							})}
 						</tbody>
 					</table>
-					<div className="absolute top-0 right-0">
+					<div className="absolute top-0 right-5">
 						<PlayerModal
 							player={selectedPlayer}
 							isOpen={isModalOpen}

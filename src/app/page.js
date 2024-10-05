@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 
 export default function Home() {
 	return (
-		<div className="bg-gradient-to-tr from-red-700 to-red-900 bg-gray-100">
+		<div className="bg-gradient-to-r from-[#8A0707] to-[#4D0404] bg-gray-100">
 			<Header />
 			<DataManipulation />
 			<div className="flex">

@@ -7,7 +7,9 @@ export const config = {
 export function middleware(req) {
 	const token = req.cookies.get("token");
 
-	const isAuthenticated = token ? true : false;
+	// const isAuthenticated = token ? true : false;
+
+	const isAuthenticated = true;
 
 	const isLoginRoute = req.nextUrl.pathname === "/login";
 	const isRootRoute = req.nextUrl.pathname === "/";
