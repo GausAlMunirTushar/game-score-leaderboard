@@ -64,7 +64,7 @@ const DataTable = ({ data }) => {
 				{/* Table */}
 				<table
 					{...getTableProps()}
-					className="divide-y divide-gray-200 table-auto"
+					className="divide-y divide-gray-200 table-auto min-w-full"
 				>
 					<thead className="bg-red-950 mb-2">
 						{headerGroups.map((headerGroup) => (
@@ -97,6 +97,7 @@ const DataTable = ({ data }) => {
 										</div>
 									</th>
 								))}
+								<th></th>
 							</tr>
 						))}
 					</thead>
@@ -122,13 +123,14 @@ const DataTable = ({ data }) => {
 													? "bg-[#333333] w-[0px] text-sm font-semibold text-secondary"
 													: cell.column.id ===
 													  "gamerank"
-													? "bg-[#f5f5f5] w-0"
+													? " w-0"
 													: "text-sm w-0"
 											}`}
 										>
 											{cell.render("Cell")}
 										</td>
 									))}
+									<td className="w-[500px] row-span-8">dfds</td>
 								</tr>
 							);
 						})}
