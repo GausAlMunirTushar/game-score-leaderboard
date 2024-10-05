@@ -14,32 +14,38 @@ function GameCard({ game }) {
 
 	return (
 		<div
-			className={`min-w-[220px] max-w-[250px] min-h-[370px] max-h-[350px] px-4 py-6 rounded-lg shadow-md cursor-pointer transition-all duration-300
+			className={`min-w-[150px]  h-[180px] px-2 py-2 rounded-lg shadow-md cursor-pointer transition-all duration-300 border
 				${isDetailed ? "bg-white text-black" : "bg-tertiary	 text-black"}`}
 			onClick={toggleView}
 		>
-			<div className="h-20">
-				<p className="font-semibold text-lg uppercase text-center">
+			<div className="h-10 border">
+				<p className=" text-[10px] uppercase text-center">
 					{game.date}
 				</p>
-				<p className="text-black text-lg text-center font-bold uppercase">
+				<p className="text-black text-[10px] text-center font-bold uppercase">
 					{game.location}
 				</p>
 			</div>
-			<div className="flex items-center justify-center mt-4 h-20">
-				<div className="w-16 h-16">
+
+			<div className="flex items-center justify-center h-15 border">
+				<div className="w-10 h-10 border">
 					<Image
 						src={currentTeam.logo}
 						alt={currentTeam.name}
-						height={60}
-						width={60}
+						height={50}
+						width={50}
 					/>
 				</div>
 			</div>
-			<div className="h-20">
-				<p className="text-center font-bold">VS</p>
-				<p className="text-lg mt-2 uppercase text-center">{currentTeam.name}</p>
-				<p className="text-center font-bold uppercase text-xl">{currentTeam.title}</p>
+
+			<div className="h-20 border">
+				<p className="text-center text-[10px] font-extrabold">VS</p>
+				<p className="text-xs  uppercase text-center border">
+					{currentTeam.name}
+				</p>
+				<p className="text-center font-bold uppercase text-xl">
+					{currentTeam.title}
+				</p>
 			</div>
 			<div className="flex items-center justify-center mt-4 h-20">
 				<p className="font-bold text-2xl uppercase text-center">

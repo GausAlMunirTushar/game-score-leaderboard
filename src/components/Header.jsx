@@ -39,10 +39,10 @@ const games = [
 ];
 export default function Header() {
 	return (
-		<header className="bg-gradient-to-tr from-red-700 to-red-900 text-white">
-			<div className="border-b border-[#a14343]">
-				<div className="max-w-7xl mx-auto flex justify-between items-center border-b border-[#777373] py-6">
-					<div className="flex items-center gap-5">
+		<header className="bg-gradient-to-tr from-red-700 to-red-900 text-white ">
+			<div className="">
+				<div className="max-w-3xl mx-auto flex justify-between items-center border-b-2  py-4 border-[#a14343]">
+					<div className="flex items-center gap-5 ">
 						<Image
 							src="/images/logo.svg"
 							height={60}
@@ -50,12 +50,12 @@ export default function Header() {
 							alt="Logo"
 							className="w-14 h-14"
 						/>
-						<h1 className="text-[45px] font-light">
+						<h1 className="text-[35px] font-light">
 							San Francisco 49ers
 						</h1>
 					</div>
 					<div>
-						<p className="text-xl tracking-[.25rem]">
+						<p className="text-sm tracking-[.25rem]">
 							2023-2024 SEASON
 						</p>
 					</div>
@@ -63,7 +63,7 @@ export default function Header() {
 			</div>
 			<div className="">
 				<div className="">
-					<GameList/>
+					<GameList />
 				</div>
 			</div>
 		</header>
