@@ -15,7 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-	title: " San Francisco - 49ers Game Score Leaderboard",
+	title: "San Francisco - 49ers Game Score Leaderboard",
 	description: "",
 };
 
@@ -25,7 +25,6 @@ export default function RootLayout({ children }) {
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<Header />
 				<main>{children}</main>
 			</body>
 		</html>
