@@ -2,12 +2,13 @@
 import React, { useState, useMemo } from "react";
 import { useTable, useSortBy, useGlobalFilter } from "react-table";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-import PlayerCard from "./PlayerCard"; // Import the PlayerCard component
+import PlayerModal from "./PlayerModal";
 
 const DataTable = ({ data }) => {
 	const [filterInput, setFilterInput] = useState("");
 	const [showAllRows, setShowAllRows] = useState(false);
 	const [selectedPlayer, setSelectedPlayer] = useState(null); // State to track selected player
+	const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
 	// Define table columns
 	const columns = useMemo(
@@ -53,9 +54,16 @@ const DataTable = ({ data }) => {
 		setShowAllRows(true);
 	};
 
-	// Handle row click to select a player
+	// Handle row click to select a player and open modal
 	const handleRowClick = (row) => {
 		setSelectedPlayer(row.original); // Set the selected player details
+		setIsModalOpen(true); // Open modal
+	};
+
+	// Close modal handler
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
+		setSelectedPlayer(null);
 	};
 
 	return (
@@ -75,9 +83,7 @@ const DataTable = ({ data }) => {
 								{headerGroup.headers.map((column) => (
 									<th
 										key={column.id}
-										{...column.getHeaderProps(
-											column.getSortByToggleProps()
-										)}
+										{...column.getSortByToggleProps()}
 										className="px-6 py-4 text-white text-left text-xs font-normal uppercase tracking-wider"
 									>
 										<div className="flex items-center">
@@ -97,7 +103,6 @@ const DataTable = ({ data }) => {
 										</div>
 									</th>
 								))}
-								<th></th>
 							</tr>
 						))}
 					</thead>
@@ -130,13 +135,19 @@ const DataTable = ({ data }) => {
 											{cell.render("Cell")}
 										</td>
 									))}
-									<td className="w-[500px] row-span-8">dfds</td>
 								</tr>
 							);
 						})}
 					</tbody>
 				</table>
 			</div>
+
+			{/* Modal for Player Details */}
+			<PlayerModal
+				player={selectedPlayer}
+				isOpen={isModalOpen}
+				onClose={handleCloseModal}
+			/>
 		</div>
 	);
 };
