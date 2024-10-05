@@ -12,19 +12,31 @@ const Sidebar = () => {
 					</h2>
 					<div className="mt-4 space-y-2">
 						<div className="flex items-center">
-							<input type="checkbox" id="segment1" className="h-4 w-4"/>
+							<input
+								type="checkbox"
+								id="segment1"
+								className="h-4 w-4"
+							/>
 							<label htmlFor="segment1" className="ml-2">
 								Lorem Ipsum Dolor
 							</label>
 						</div>
 						<div className="flex items-center">
-							<input type="checkbox" id="segment2" className="h-4 w-4"/>
+							<input
+								type="checkbox"
+								id="segment2"
+								className="h-4 w-4"
+							/>
 							<label htmlFor="segment2" className="ml-2">
 								Sit Amet
 							</label>
 						</div>
 						<div className="flex items-center">
-							<input type="checkbox" id="segment3" className="h-4 w-4"/>
+							<input
+								type="checkbox"
+								id="segment3"
+								className="h-4 w-4"
+							/>
 							<label htmlFor="segment3" className="ml-2">
 								Vivamus Interdum
 							</label>
@@ -37,20 +49,16 @@ const Sidebar = () => {
 					<h2 className="text-lg font-bold">Aliquam Ornare</h2>
 					<div className="mt-4">
 						<div className="flex gap-2">
-							<button
-								type=""
+							<input
+								type="number"
 								className="w-full bg-white p-2 rounded  text-tertiary font-semibold"
 								placeholder="from"
-							>
-								From
-							</button>
-							<button
+							></input>
+							<input
 								type=""
 								className="w-full bg-white p-2 rounded text-tertiary font-semibold"
 								placeholder="to"
-							>
-								To
-							</button>
+							></input>
 						</div>
 						<div className="flex gap-4 mt-4">
 							<button className="bg-tertiary rounded-full text-white font-semibold px-6 py-2">
