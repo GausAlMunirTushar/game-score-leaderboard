@@ -1,14 +1,35 @@
 "use client";
+import { loginUserApi } from "@/api/api-end-points";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const LoginForm = () => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [inputValues, setInputValues] = useState({
+		email: "",
+		password: "",
+	});
+	const router = useRouter();
 
-	const handleSubmit = (e) => {
+	const redierectUser = () => {
+		router.push("/");
+	};
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setInputValues((prevValues) => ({
+			...prevValues,
+			[name]: value,
+		}));
+	};
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		console.log({ email, password });
+		try {
+			const response = await loginUserApi(inputValues, redierectUser);
+		} catch (error) {
+			console.error("Error submitting the form:", error.message);
+		}
 	};
 
 	return (
@@ -26,9 +47,10 @@ const LoginForm = () => {
 						<input
 							type="email"
 							id="email"
+							name="email"
 							className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							value={inputValues.email}
+							onChange={handleChange}
 							required
 						/>
 					</div>
@@ -42,9 +64,10 @@ const LoginForm = () => {
 						<input
 							type="password"
 							id="password"
+							name="password"
 							className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							value={inputValues.password}
+							onChange={handleChange}
 							required
 						/>
 					</div>
