@@ -59,12 +59,12 @@ const DataTable = ({ data }) => {
 	};
 
 	return (
-		<div className="flex">
-			<div className="w-2/3">
+		<div className="flex overflow-x-auto">
+			<div className="w-full">
 				{/* Table */}
 				<table
 					{...getTableProps()}
-					className="min-w-full divide-y divide-gray-200 table-auto"
+					className="divide-y divide-gray-200 table-auto"
 				>
 					<thead className="bg-red-950 mb-2">
 						{headerGroups.map((headerGroup) => (
@@ -78,7 +78,7 @@ const DataTable = ({ data }) => {
 										{...column.getHeaderProps(
 											column.getSortByToggleProps()
 										)}
-										className="px-6 py-4 text-white text-left text-xs font-medium uppercase tracking-wider"
+										className="px-6 py-4 text-white text-left text-xs font-normal uppercase tracking-wider"
 									>
 										<div className="flex items-center">
 											{column.render("Header")}
@@ -111,16 +111,19 @@ const DataTable = ({ data }) => {
 									key={row.id}
 									{...row.getRowProps()}
 									onClick={() => handleRowClick(row)}
-									className="hover:bg-red-100 hover:border-primary hover:border-4 cursor-pointer " // Common hover effect for all rows
+									className="hover:bg-red-100 cursor-pointer"
 								>
 									{row.cells.map((cell) => (
 										<td
 											key={cell.column.id}
 											{...cell.getCellProps()}
-											className={`px-8 text-center py-6 whitespace-nowrap ${
+											className={`text-center py-2 whitespace-nowrap ${
 												cell.column.id === "rank"
-													? "bg-gray-800 text-xl font-bold text-secondary"
-													: ""
+													? "bg-[#333333] w-[0px] text-sm font-semibold text-secondary"
+													: cell.column.id ===
+													  "gamerank"
+													? "bg-[#f5f5f5] w-0"
+													: "text-sm w-0"
 											}`}
 										>
 											{cell.render("Cell")}
@@ -131,11 +134,6 @@ const DataTable = ({ data }) => {
 						})}
 					</tbody>
 				</table>
-			</div>
-
-			{/* Player Card Section */}
-			<div className="w-1/3 p-4">
-				<PlayerCard player={selectedPlayer} />
 			</div>
 		</div>
 	);
