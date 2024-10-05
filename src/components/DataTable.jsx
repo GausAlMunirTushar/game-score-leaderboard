@@ -92,7 +92,6 @@ const DataTable = ({ data }) => {
 											<div className="flex items-center">
 												{column.render("Header")}
 												<span className="ml-2">
-													{/* Sorting icons */}
 													{column.isSorted ? (
 														column.isSortedDesc ? (
 															<FaSortDown />
@@ -115,7 +114,7 @@ const DataTable = ({ data }) => {
 						>
 							{displayedRows.map((row, rowIndex) => {
 								prepareRow(row);
-								const isClicked = rowIndex === clickedRowIndex; // Check if the row is clicked
+								const isClicked = rowIndex === clickedRowIndex;
 								return (
 									<tr
 										key={row.id}
@@ -159,8 +158,6 @@ const DataTable = ({ data }) => {
 					</div>
 				</div>
 			</div>
-
-			{/* Modal for Player Details */}
 		</div>
 	);
 };
