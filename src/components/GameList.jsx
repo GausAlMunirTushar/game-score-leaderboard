@@ -341,7 +341,7 @@ const GameList = () => {
 	return (
 		<div
 			ref={containerRef}
-			className="flex space-x-6 overflow-x-auto py-4 px-2 cursor-grab scrollbar-hide"
+			className="flex space-x-6 overflow-x-auto py-10 px-2 cursor-grab scrollbar-hide"
 			onMouseDown={handleMouseDown}
 			onMouseUp={handleMouseUp}
 			onMouseMove={handleMouseMove}

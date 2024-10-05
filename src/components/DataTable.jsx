@@ -1,54 +1,27 @@
 "use client";
 import React, { useState, useMemo } from "react";
 import { useTable, useSortBy, useGlobalFilter } from "react-table";
+import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
+import PlayerCard from "./PlayerCard"; // Import the PlayerCard component
 
 const DataTable = ({ data }) => {
 	const [filterInput, setFilterInput] = useState("");
-	const [showAllRows, setShowAllRows] = useState(false); // State to toggle showing all data
+	const [showAllRows, setShowAllRows] = useState(false);
+	const [selectedPlayer, setSelectedPlayer] = useState(null); // State to track selected player
 
 	// Define table columns
 	const columns = useMemo(
 		() => [
-			{
-				Header: "Session Rank",
-				accessor: "rank",
-			},
-			{
-				Header: "Game Rank",
-				accessor: "gamerank",
-			},
-			{
-				Header: "First Name",
-				accessor: "firstName",
-			},
-			{
-				Header: "Last Name",
-				accessor: "lastName",
-			},
-			{
-				Header: "Position",
-				accessor: "position",
-			},
-			{
-				Header: "Height",
-				accessor: "height",
-			},
-			{
-				Header: "Weight",
-				accessor: "weight",
-			},
-			{
-				Header: "Age",
-				accessor: "age",
-			},
-			{
-				Header: "Experience",
-				accessor: "experience",
-			},
-			{
-				Header: "College",
-				accessor: "college",
-			},
+			{ Header: "Session Rank", accessor: "rank" },
+			{ Header: "Game Rank", accessor: "gamerank" },
+			{ Header: "First Name", accessor: "firstName" },
+			{ Header: "Last Name", accessor: "lastName" },
+			{ Header: "PS", accessor: "ps" },
+			{ Header: "HT", accessor: "ht" },
+			{ Header: "WT", accessor: "wt" },
+			{ Header: "Age", accessor: "age" },
+			{ Header: "EXP", accessor: "exp" },
+			{ Header: "College", accessor: "college" },
 		],
 		[]
 	);
@@ -77,66 +50,93 @@ const DataTable = ({ data }) => {
 		const value = e.target.value || "";
 		setGlobalFilter(value);
 		setFilterInput(value);
-		setShowAllRows(true); // Show all rows when filtering
+		setShowAllRows(true);
+	};
+
+	// Handle row click to select a player
+	const handleRowClick = (row) => {
+		setSelectedPlayer(row.original); // Set the selected player details
 	};
 
 	return (
-		<div className="">
-			{/* Table */}
-			<table
-				{...getTableProps()}
-				className="min-w-full divide-y divide-gray-200 table-auto"
-			>
-				<thead className="bg-red-950 mb-2">
-					{headerGroups.map((headerGroup) => (
-						<tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
-							{headerGroup.headers.map((column) => (
-								<th
-									key={column.id} // Add key prop here
-									{...column.getHeaderProps(
-										column.getSortByToggleProps()
-									)}
-									className="px-6 py-4 text-white text-left text-xs font-medium uppercase tracking-wider"
-								>
-									{column.render("Header")}
-									<span style={{ color: "#3490dc" }}>
-										{column.isSorted
-											? column.isSortedDesc
-												? " 🔽"
-												: " 🔼"
-											: ""}
-									</span>
-								</th>
-							))}
-						</tr>
-					))}
-				</thead>
-				<tbody
-					{...getTableBodyProps()}
-					className="bg-white divide-y divide-gray-200"
+		<div className="flex">
+			<div className="w-2/3">
+				{/* Table */}
+				<table
+					{...getTableProps()}
+					className="min-w-full divide-y divide-gray-200 table-auto"
 				>
-					{displayedRows.map((row) => {
-						prepareRow(row);
-						return (
-							<tr key={row.id} {...row.getRowProps()}> {/* Add key prop here */}
-								{row.cells.map((cell) => (
-									<td
-										key={cell.column.id} // Add key prop here
-										{...cell.getCellProps()}
-										className={`px-8 text-center  py-6 whitespace-nowrap ${
-											cell.column.id === "rank"
-												? "bg-gray-800 text-xl font-bold text-secondary"
-												: ""
-										}`}
+					<thead className="bg-red-950 mb-2">
+						{headerGroups.map((headerGroup) => (
+							<tr
+								key={headerGroup.id}
+								{...headerGroup.getHeaderGroupProps()}
+							>
+								{headerGroup.headers.map((column) => (
+									<th
+										key={column.id}
+										{...column.getHeaderProps(
+											column.getSortByToggleProps()
+										)}
+										className="px-6 py-4 text-white text-left text-xs font-medium uppercase tracking-wider"
 									>
-										{cell.render("Cell")}
-									</td>
+										<div className="flex items-center">
+											{column.render("Header")}
+											<span className="ml-2">
+												{/* Sorting icons */}
+												{column.isSorted ? (
+													column.isSortedDesc ? (
+														<FaSortDown />
+													) : (
+														<FaSortUp />
+													)
+												) : (
+													<FaSort />
+												)}
+											</span>
+										</div>
+									</th>
 								))}
 							</tr>
-						);
-					})}
-				</tbody>
-			</table>
+						))}
+					</thead>
+					<tbody
+						{...getTableBodyProps()}
+						className="bg-white divide-y divide-gray-200"
+					>
+						{displayedRows.map((row) => {
+							prepareRow(row);
+							return (
+								<tr
+									key={row.id}
+									{...row.getRowProps()}
+									onClick={() => handleRowClick(row)}
+									className="hover:bg-red-100 hover:border-primary hover:border-4 cursor-pointer " // Common hover effect for all rows
+								>
+									{row.cells.map((cell) => (
+										<td
+											key={cell.column.id}
+											{...cell.getCellProps()}
+											className={`px-8 text-center py-6 whitespace-nowrap ${
+												cell.column.id === "rank"
+													? "bg-gray-800 text-xl font-bold text-secondary"
+													: ""
+											}`}
+										>
+											{cell.render("Cell")}
+										</td>
+									))}
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+			</div>
+
+			{/* Player Card Section */}
+			<div className="w-1/3 p-4">
+				<PlayerCard player={selectedPlayer} />
+			</div>
 		</div>
 	);
 };
